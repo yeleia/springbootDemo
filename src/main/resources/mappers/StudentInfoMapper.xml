@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wing.dissertation.dao.StudentInfoMapper">
+  <resultMap id="BaseResultMap" type="org.wing.dissertation.domain.StudentInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="menitorId" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="studentLogin" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="loginPass" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="studentName" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="sex" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="campus" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="departmentRoom" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="major" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="qq" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="email" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="tele" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="studentImage" javaType="java.lang.String" jdbcType="CHAR"/>
+      <arg column="paperId" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="projectId" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, menitorId, studentLogin, loginPass, studentName, sex, campus, departmentRoom, 
+    major, qq, email, tele,studentImage,paperId,projectId
+  </sql>
+  <insert id="insert" parameterType="org.wing.dissertation.domain.StudentInfo">
+    insert into studentInfo (id,menitorId, studentLogin,
+      loginPass,studentName,studentImage)
+    values (NULL, #{menitorid,jdbcType=INTEGER}, #{studentlogin,jdbcType=CHAR},
+      #{loginpass,jdbcType=CHAR}, #{studentname,jdbcType=CHAR},#{studentImage,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.wing.dissertation.domain.StudentInfo">
+    insert into studentInfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="menitorid != null">
+        menitorId,
+      </if>
+      <if test="studentlogin != null">
+        studentLogin,
+      </if>
+      <if test="loginpass != null">
+        loginPass,
+      </if>
+      <if test="studentname != null">
+        studentName,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="campus != null">
+        campus,
+      </if>
+      <if test="departmentroom != null">
+        departmentRoom,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="tele != null">
+        tele,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="menitorid != null">
+        #{menitorid,jdbcType=INTEGER},
+      </if>
+      <if test="studentlogin != null">
+        #{studentlogin,jdbcType=CHAR},
+      </if>
+      <if test="loginpass != null">
+        #{loginpass,jdbcType=CHAR},
+      </if>
+      <if test="studentname != null">
+        #{studentname,jdbcType=CHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="campus != null">
+        #{campus,jdbcType=CHAR},
+      </if>
+      <if test="departmentroom != null">
+        #{departmentroom,jdbcType=CHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=CHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=CHAR},
+      </if>
+      <if test="tele != null">
+        #{tele,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="addProject" parameterType="org.wing.dissertation.domain.StudentInfo">
+    UPDATE studentInfo set projectId=#{projectId} where id=#{id}
+  </update>
+  <update id="deletePro" parameterType="integer">
+    UPDATE studentInfo set projectId=null WHERE id=#{id}
+  </update>
+  <update id="updateImage" parameterType="org.wing.dissertation.domain.StudentInfo">
+    UPDATE studentInfo set studentImage=#{studentImage}
+  </update>
+    <update id="updateInfo" parameterType="org.wing.dissertation.domain.StudentInfo">
+      UPDATE studentInfo
+      <set>
+        <if test="loginpass!=null and loginpass!=''">
+          loginPass=#{loginpass},
+        </if>
+        <if test="studentname!=null and studentname!=''">
+          studentName=#{studentname},
+        </if>
+        <if test="sex!=null and sex!=''">
+          sex=#{sex},
+        </if>
+        <if test="campus!=null and campus!=''">
+          campus=#{campus},
+        </if>
+        <if test="departmentroom!=null and departmentroom!=''">
+          departmentRoom=#{departmentroom},
+        </if>
+        <if test="major!=null and major!=''">
+          major=#{major},
+        </if>
+        <if test="qq!=null and qq!=''">
+          qq=#{qq},
+        </if>
+        <if test="email!=null and email!=''">
+          email=#{email},
+        </if>
+        <if test="tele!=null and tele!=''">
+          tele=#{tele}
+        </if>
+      </set>
+      where id=#{id}
+    </update>
+  <update id="updateStudentPro" parameterType="integer">
+    update studentInfo set projectId =null  where projectId=#{projectId} ;
+  </update>
+  <select id="selectByLoginame" resultType="org.wing.dissertation.domain.StudentInfo" parameterType="string">
+    SELECT * FROM studentInfo WHERE studentLogin=#{studentlogin}
+  </select>
+  <select id="selectByMap" parameterType="java.util.Map" resultType="org.wing.dissertation.domain.StudentInfo">
+    SELECT * FROM studentInfo WHERE studentLogin=#{studentlogin} and loginPass=#{loginpass}
+   </select>
+  <select id="selectByMenitorId" parameterType="integer" resultType="org.wing.dissertation.domain.StudentInfo">
+    SELECT * from studentInfo WHERE menitorId=#{menitorid}
+  </select>
+    <select id="selectByStudentId" resultType="org.wing.dissertation.domain.StudentInfo">
+    SELECT * from studentInfo WHERE id=#{id}
+    </select>
+</mapper>

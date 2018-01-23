@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wing.dissertation.dao.HistoryMapper">
+  <resultMap id="BaseResultMap" type="org.wing.dissertation.domain.History">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="paperId" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ploadTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="paper" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="pstatus" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, paperId, ploadTime, paper, pstatus
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from history
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPaperId" resultType="org.wing.dissertation.domain.History">
+    SELECT * from history WHERE paperId=#{paperid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from history
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.wing.dissertation.domain.History">
+    insert into history (id, paperId, ploadTime, 
+      paper, pstatus)
+    values (null, #{paperid,jdbcType=INTEGER}, #{ploadtime,jdbcType=TIMESTAMP},
+      #{paper,jdbcType=CHAR}, #{pstatus,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.wing.dissertation.domain.History">
+    insert into history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="paperid != null">
+        paperId,
+      </if>
+      <if test="ploadtime != null">
+        ploadTime,
+      </if>
+      <if test="paper != null">
+        paper,
+      </if>
+      <if test="pstatus != null">
+        pstatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="paperid != null">
+        #{paperid,jdbcType=INTEGER},
+      </if>
+      <if test="ploadtime != null">
+        #{ploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paper != null">
+        #{paper,jdbcType=CHAR},
+      </if>
+      <if test="pstatus != null">
+        #{pstatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.wing.dissertation.domain.History">
+    update history
+    <set>
+      <if test="paperid != null">
+        paperId = #{paperid,jdbcType=INTEGER},
+      </if>
+      <if test="ploadtime != null">
+        ploadTime = #{ploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paper != null">
+        paper = #{paper,jdbcType=CHAR},
+      </if>
+      <if test="pstatus != null">
+        pstatus = #{pstatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.wing.dissertation.domain.History">
+    update history
+    set paperId = #{paperid,jdbcType=INTEGER},
+      ploadTime = #{ploadtime,jdbcType=TIMESTAMP},
+      paper = #{paper,jdbcType=CHAR},
+      pstatus = #{pstatus,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

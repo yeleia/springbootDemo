@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wing.dissertation.dao.MaterialMapper">
+  <resultMap id="BaseResultMap" type="org.wing.dissertation.domain.Material">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="menitorId" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="title" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="describle" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="filePath" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="pdfPath" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="originName" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="uploadTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, menitorId, title, describle, filePath, pdfPath, originName, uploadTime
+  </sql>
+  <update id="updateMaterial" parameterType="org.wing.dissertation.domain.Material">
+    UPDATE material
+    <set>
+      <if test="title!=null||title!=''">
+        title=#{title},
+      </if>
+      <if test="describle!=null||describle!=''">
+        describle=#{describle},
+      </if>
+      <if test="filepath!=null ||filepath!=''">
+        filePath=#{filepath},
+      </if>
+      <if test="pdfpath!=null ||pdfpath!=''">
+        pdfPath=#{pdfpath},
+      </if>
+      <if test="originname !=null||originname!=''">
+        originName=#{originname},
+      </if>
+      <if test="uploadtime!=null ||uploadtime!=''">
+        uploadTime=#{uploadtime}
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+  <delete id="deleteById" parameterType="integer">
+    DELETE FROM material WHERE id=#{id}
+  </delete>
+  <select id="selectByMenitorId" resultType="org.wing.dissertation.domain.Material">
+    SELECT * from material WHERE menitorId=#{menitorid}
+  </select>
+    <select id="selectById" resultType="org.wing.dissertation.domain.Material">
+      select * from material WHERE id=#{id};
+    </select>
+    <insert id="insert" parameterType="org.wing.dissertation.domain.Material">
+    insert into material (id, menitorId, title, 
+      describle, filePath, pdfPath, 
+      originName, uploadTime)
+    values (#{id,jdbcType=INTEGER}, #{menitorid,jdbcType=INTEGER}, #{title,jdbcType=CHAR}, 
+      #{describle,jdbcType=CHAR}, #{filepath,jdbcType=CHAR}, #{pdfpath,jdbcType=CHAR}, 
+      #{originname,jdbcType=CHAR}, #{uploadtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.wing.dissertation.domain.Material">
+    insert into material
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="menitorid != null">
+        menitorId,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="describle != null">
+        describle,
+      </if>
+      <if test="filepath != null">
+        filePath,
+      </if>
+      <if test="pdfpath != null">
+        pdfPath,
+      </if>
+      <if test="originname != null">
+        originName,
+      </if>
+      <if test="uploadtime != null">
+        uploadTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="menitorid != null">
+        #{menitorid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=CHAR},
+      </if>
+      <if test="describle != null">
+        #{describle,jdbcType=CHAR},
+      </if>
+      <if test="filepath != null">
+        #{filepath,jdbcType=CHAR},
+      </if>
+      <if test="pdfpath != null">
+        #{pdfpath,jdbcType=CHAR},
+      </if>
+      <if test="originname != null">
+        #{originname,jdbcType=CHAR},
+      </if>
+      <if test="uploadtime != null">
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+
+</mapper>

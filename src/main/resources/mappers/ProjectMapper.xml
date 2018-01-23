@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wing.dissertation.dao.ProjectMapper">
+  <resultMap id="BaseResultMap" type="org.wing.dissertation.domain.Project">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="teacherId" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="publishTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="document" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="documentpdf" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="originame" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, teacherId, title, publishTime, document,documentpdf,originame,status
+  </sql>
+  <insert id="insertSelective" parameterType="org.wing.dissertation.domain.Project">
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="teacherid != null">
+        teacherId,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="publishtime != null">
+        publishTime,
+      </if>
+      <if test="document != null">
+        document,
+      </if>
+      <if test="documentpdf !=null">
+        documentpdf,
+      </if>
+      <if test="originame !=null">
+        originame,
+      </if>
+      <if test="status==null">
+        status
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null">
+        #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null">
+        #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="document != null">
+        #{document,jdbcType=VARCHAR},
+      </if>
+      <if test="documentpdf !=null">
+        #{documentpdf,jdbcType=VARCHAR},
+      </if>
+      <if test="originame !=null">
+        #{originame,jdbcType=VARCHAR},
+      </if>
+      <if test="status==null">
+        0
+      </if>
+    </trim>
+  </insert>
+    <update id="updateById" parameterType="org.wing.dissertation.domain.Project">
+      UPDATE project
+      <set>
+        <if test="title!=null || title!=''">
+          title=#{title},
+        </if>
+        <if test="publishtime!=null || publishtime!=''">
+          publishtime=#{publishtime},
+      </if>
+        <if test="document!=null || document!=''">
+          document=#{document},
+        </if>
+        <if test="documentpdf!=null || documentpdf!=''">
+          documentpdf=#{documentpdf},
+        </if>
+        <if test="originame!=null || originame!=''">
+          originame=#{originame},
+        </if>
+      </set>
+      where id=#{id}
+    </update>
+    <update id="updateStatus" parameterType="integer">
+      UPDATE project SET status=1 WHERE id=#{id}
+    </update>
+  <update id="updateStatus0" parameterType="org.wing.dissertation.domain.Project">
+    UPDATE project SET status=0 WHERE id=#{id}
+  </update>
+  <delete id="deleteById" parameterType="integer">
+    DELETE from project WHERE id=#{id}
+  </delete>
+  <select id="selectAll" resultType="org.wing.dissertation.domain.Project">
+    SELECT * from project WHERE teacherId=#{teacherid}
+  </select>
+  <select id="selectById" resultType="org.wing.dissertation.domain.Project">
+    select * from project WHERE id=#{id};
+  </select>
+
+
+</mapper>

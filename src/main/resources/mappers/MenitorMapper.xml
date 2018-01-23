@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wing.dissertation.dao.MenitorMapper">
+  <resultMap id="BaseResultMap" type="org.wing.dissertation.domain.Menitor">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="loginName" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="loginPass" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="menitorName" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="sex" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="campus" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="department" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="education" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="officePhone" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="priovatePhone" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="officeAdress" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="qq" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="email" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="course" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="research" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="menitorimage" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, loginName, loginPass, menitorName, sex, campus, department,education,
+    officePhone, priovatePhone, officeAdress, qq, email, course, research,menitorimage
+  </sql>
+    <update id="updateInfo" parameterType="org.wing.dissertation.domain.Menitor">
+      UPDATE menitor
+      <set>
+        <if test="loginpass!=null||loginpass!=''">
+          loginPass=#{loginpass},
+        </if>
+        <if test="menitorname!=null||menitorname!=''">
+          menitorName=#{menitorname},
+        </if>
+        <if test="sex!=null||sex!=''">
+          sex=#{sex},
+        </if>
+        <if test="campus!=null||campus!=''">
+          campus=#{campus},
+        </if>
+        <if test="department!=null||department!=''">
+          department=#{department},
+        </if>
+        <if test="education!=null||education!=''">
+          education=#{education},
+        </if>
+        <if test="officephone!=null||officephone!=''">
+          officePhone=#{officephone},
+        </if>
+        <if test="priovatephone!=null||priovatephone!=''">
+          priovatePhone=#{priovatephone},
+        </if>
+        <if test="officeadress!=null||officeadress!=''">
+          officeAdress=#{officeadress},
+        </if>
+        <if test="qq!=null||qq!=''">
+          qq=#{qq},
+        </if>
+        <if test="email!=null||email!=''">
+          email=#{email},
+        </if>
+        <if test="course!=null||course!=''">
+          course=#{course},
+        </if>
+        <if test="research!=null||research!=''">
+          research=#{research}
+        </if>
+      </set>
+      where id=#{id}
+    </update>
+  <update id="updateImage" parameterType="org.wing.dissertation.domain.Menitor">
+    UPDATE menitor set menitorimage=#{menitorimage} where id=#{id}
+  </update>
+
+    <select id="selectByMap" parameterType="java.util.Map" resultType="org.wing.dissertation.domain.Menitor">
+    SELECT * from menitor WHERE loginName=#{loginName} and loginPass=#{password}
+  </select>
+  <select id="selectById" parameterType="integer" resultType="org.wing.dissertation.domain.Menitor">
+    SELECT * FROM menitor WHERE id=#{id}
+  </select>
+
+</mapper>
